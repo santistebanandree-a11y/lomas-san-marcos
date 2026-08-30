@@ -233,6 +233,97 @@
             font-size: 14px;
         }
 
+        /* SECCIÓN DE DONACIONES */
+        .donation-section {
+            margin-top: 35px;
+            padding: 25px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 3px solid #f59e0b;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .donation-section h3 {
+            color: #b45309;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .donation-section p {
+            color: #92400e;
+            font-size: 15px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .donation-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .donation-card {
+            background: #ffffff;
+            border: 2px solid #f59e0b;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .donation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .donation-card .icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .donation-card h4 {
+            color: #b45309;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .donation-info {
+            background: #fffbeb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .donation-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #15803d;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 2px;
+            margin: 10px 0;
+        }
+
+        .btn-copy {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #f59e0b;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-copy:hover {
+            background-color: #d97706;
+        }
+
         /* BOTÓN VOLVER A LA AGUADA */
         .return-box {
             margin-top: 35px;
@@ -258,6 +349,16 @@
 
         .btn-return:hover {
             background-color: #047857;
+        }
+
+        .copy-feedback {
+            display: none;
+            margin-top: 10px;
+            padding: 8px 12px;
+            background-color: #10b981;
+            color: white;
+            border-radius: 6px;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -398,6 +499,40 @@
             </tbody>
         </table>
 
+        <!-- SECCIÓN DE DONACIONES -->
+        <div class="donation-section">
+            <h3>💚 ¡Ayuda a Cuidar las Lomas! Haz una Donación</h3>
+            <p>Tu contribución nos ayuda a:<br>🧹 <strong>Limpiar y mantener</strong> el ecosistema de las lomas<br>🐾 <strong>Alimentar y proteger</strong> la fauna local<br>🌱 <strong>Preservar</strong> este espacio natural para las futuras generaciones</p>
+            
+            <div class="donation-methods">
+                <div class="donation-card">
+                    <div class="icon">📱</div>
+                    <h4>Yape</h4>
+                    <div class="donation-info">
+                        Transferencia rápida y segura
+                    </div>
+                    <div class="donation-number">993943429</div>
+                    <button class="btn-copy" onclick="copiarAlPortapapeles('993943429', this)">📋 Copiar Número</button>
+                    <div class="copy-feedback" id="feedback-yape">¡Copiado! 💚</div>
+                </div>
+                
+                <div class="donation-card">
+                    <div class="icon">🏦</div>
+                    <h4>BCP</h4>
+                    <div class="donation-info">
+                        Transferencia bancaria directa
+                    </div>
+                    <div class="donation-number">993943429</div>
+                    <button class="btn-copy" onclick="copiarAlPortapapeles('993943429', this)">📋 Copiar Número</button>
+                    <div class="copy-feedback" id="feedback-bcp">¡Copiado! 💚</div>
+                </div>
+            </div>
+
+            <p style="margin-top: 20px; font-size: 13px; color: #92400e;">
+                <strong>📢 Nota:</strong> Todas las donaciones son voluntarias y se utilizan íntegramente para actividades de conservación ambiental en las Lomas de San Marcos de la Aguada.
+            </p>
+        </div>
+
         <!-- SECCIÓN DE REGRESO / LLEGADA A LA AGUADA -->
         <div class="return-box">
             <h3>📍 Punto de Retorno y Base del Recorrido</h3>
@@ -406,6 +541,20 @@
         </div>
 
     </div>
+
+    <script>
+        function copiarAlPortapapeles(texto, boton) {
+            navigator.clipboard.writeText(texto).then(() => {
+                const feedback = boton.nextElementSibling;
+                feedback.style.display = 'block';
+                setTimeout(() => {
+                    feedback.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                alert('Error al copiar: ' + err);
+            });
+        }
+    </script>
 
 </body>
 </html>
