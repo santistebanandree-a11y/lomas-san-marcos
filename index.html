@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lomas de San Marcos de la Aguada - Guía Completa Interactiva</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background-color: #f4f6f8;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header {
+            border-bottom: 3px solid #15803d;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: #15803d;
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #555;
+            font-size: 15px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #0f172a;
+            margin: 30px 0 15px 0;
+            border-left: 5px solid #15803d;
+            padding-left: 10px;
+        }
+
+        /* BANNER DE BUEN VIAJE */
+        .welcome-banner {
+            background: linear-gradient(135deg, #15803d, #047857);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .welcome-banner h2 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .welcome-banner p {
+            font-size: 15px;
+            opacity: 0.95;
+        }
+
+        .map-container {
+            border: 3px solid #000;
+            border-radius: 8px;
+            background: #fff;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .map-container svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .interactive-point {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .interactive-point:hover {
+            transform: scale(1.05);
+        }
+
+        .legend-box {
+            background: #f8fafc;
+            border: 2px solid #cbd5e1;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .line-red { width: 30px; height: 6px; background: #ff0000; display: inline-block; }
+        .line-yellow { width: 30px; height: 6px; background: #ffaa00; display: inline-block; }
+        .line-blue { width: 30px; height: 8px; background: #0066ff; display: inline-block; }
+
+        /* TABLAS */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #15803d;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .btn-map {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #2563eb;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+
+        .btn-map:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn-gmail {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #dc2626;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+
+        .btn-gmail:hover {
+            background-color: #b91c1c;
+        }
+
+        /* FAUNA CARDS */
+        .fauna-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .fauna-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .fauna-card .icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .fauna-card h4 {
+            color: #15803d;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .fauna-card p {
+            font-size: 13px;
+            color: #475569;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .info-card {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #0284c7;
+        }
+
+        .info-card h4 {
+            margin-bottom: 8px;
+            color: #0369a1;
+        }
+
+        .info-card ul {
+            padding-left: 18px;
+            font-size: 14px;
+        }
+
+        /* BOTÓN VOLVER A LA AGUADA */
+        .return-box {
+            margin-top: 35px;
+            padding: 20px;
+            background-color: #ecfdf5;
+            border: 2px dashed #10b981;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .btn-return {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 24px;
+            background-color: #059669;
+            color: #ffffff;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+
+        .btn-return:hover {
+            background-color: #047857;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <h1>🌿 Guía Completa e Interactiva: Lomas de San Marcos de la Aguada</h1>
+            <p class="subtitle">Valle de Mala, Cañete • Mapa interactivo, registro de fauna, contacto e itinerario de llegada.</p>
+        </header>
+
+        <!-- MENSAJE DE BUEN VIAJE Y BIENVENIDA -->
+        <div class="welcome-banner">
+            <h2>🎒 ¡Buen Viaje a las Lomas de San Marcos de la Aguada! 🌄</h2>
+            <p>Disfruta de la caminata, la naturaleza verde del Valle de Mala y cuida el ecosistema en tu recorrido.</p>
+        </div>
+
+        <!-- SECCIÓN MAPA / CROQUIS INTERACTIVO -->
+        <h2 class="section-title">📍 Croquis Interactivo de Caminos</h2>
+        <p style="margin-bottom: 12px; font-size: 14px; color: #444;">Haz clic en los puntos del mapa para abrir las ubicaciones en Google Maps.</p>
+        
+        <div class="map-container">
+            <svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg">
+                <rect width="800" height="480" fill="#ffffff" />
+
+                <!-- RELIEVE Y RÍO -->
+                <path d="M 0,360 Q 200,280 400,320 T 800,180 L 800,480 L 0,480 Z" fill="#e2f0d9" stroke="#000000" stroke-width="2" />
+                <path d="M 0,420 Q 250,430 500,440 T 800,450" fill="none" stroke="#0066ff" stroke-width="12" />
+                <text x="80" y="465" fill="#0066ff" font-size="15" font-weight="bold">RÍO MALA</text>
+
+                <!-- CAMINOS -->
+                <path d="M 380,250 Q 480,210 550,170" fill="none" stroke="#ffaa00" stroke-width="10" />
+                <path d="M 100,390 Q 250,300 380,250 T 700,120" fill="none" stroke="#ff0000" stroke-width="10" />
+
+                <!-- ENLACES MAPS -->
+                <a href="https://maps.google.com/?q=-12.6393,-76.6231" target="_blank" class="interactive-point">
+                    <g transform="translate(100, 390)">
+                        <circle cx="0" cy="0" r="14" fill="#ff0000" stroke="#000" stroke-width="3" />
+                        <rect x="20" y="-18" width="250" height="36" rx="5" fill="#fff" stroke="#000" stroke-width="2" />
+                        <text x="30" y="5" fill="#000" font-size="14" font-weight="bold">1. Inicio: San Marcos 🔗</text>
+                    </g>
+                </a>
+
+                <a href="https://maps.google.com/?q=-12.6300,-76.6150" target="_blank" class="interactive-point">
+                    <g transform="translate(380, 250)">
+                        <circle cx="0" cy="0" r="14" fill="#0066ff" stroke="#000" stroke-width="3" />
+                        <rect x="20" y="-18" width="210" height="36" rx="5" fill="#fff" stroke="#000" stroke-width="2" />
+                        <text x="30" y="5" fill="#000" font-size="14" font-weight="bold">2. Puquio (Agua) 🔗</text>
+                    </g>
+                </a>
+
+                <a href="https://maps.google.com/?q=-12.6250,-76.6100" target="_blank" class="interactive-point">
+                    <g transform="translate(550, 170)">
+                        <circle cx="0" cy="0" r="12" fill="#ffaa00" stroke="#000" stroke-width="3" />
+                        <rect x="20" y="-18" width="190" height="36" rx="5" fill="#fff" stroke="#000" stroke-width="2" />
+                        <text x="30" y="5" fill="#000" font-size="14" font-weight="bold">3. Atrapanieblas 🔗</text>
+                    </g>
+                </a>
+
+                <a href="https://maps.google.com/?q=-12.6200,-76.6050" target="_blank" class="interactive-point">
+                    <g transform="translate(700, 120)">
+                        <circle cx="0" cy="0" r="14" fill="#009933" stroke="#000" stroke-width="3" />
+                        <rect x="-240" y="-18" width="220" height="36" rx="5" fill="#fff" stroke="#000" stroke-width="2" />
+                        <text x="-230" y="5" fill="#000" font-size="14" font-weight="bold">4. Mirador Principal 🔗</text>
+                    </g>
+                </a>
+            </svg>
+        </div>
+
+        <div class="legend-box">
+            <strong>Leyenda del Croquis:</strong>
+            <div class="legend-grid">
+                <div class="legend-item"><span class="line-red"></span> Ruta Principal (Subida al Mirador)</div>
+                <div class="legend-item"><span class="line-yellow"></span> Desvío a Atrapanieblas</div>
+                <div class="legend-item"><span class="line-blue"></span> Río Mala</div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN FAUNA REGISTRADA -->
+        <h2 class="section-title">🐾 Fauna Registrada en la Zona</h2>
+        <p style="font-size: 14px; color: #444; margin-bottom: 10px;">Especies representativas del ecosistema de lomas en la quebrada de San Marcos de la Aguada:</p>
+        
+        <div class="fauna-grid">
+            <div class="fauna-card">
+                <div class="icon">🦅</div>
+                <h4>Cernícalo Americano</h4>
+                <p>Ave rapace pequeña común sobrevolando las lomas en busca de presas.</p>
+            </div>
+            <div class="fauna-card">
+                <div class="icon">🦊</div>
+                <h4>Zorro Costero</h4>
+                <p>Mamífero nativo que habita las quebradas y zonas altas del valle.</p>
+            </div>
+            <div class="fauna-card">
+                <div class="icon">🦎</div>
+                <h4>Lagartija de las Lomas</h4>
+                <p>Reptil adaptado entre las rocas y la vegetación temporal.</p>
+            </div>
+            <div class="fauna-card">
+                <div class="icon">🐦</div>
+                <h4>Pampero Peruano</h4>
+                <p>Ave endémica de la costa que anida en terreno seco de lomas.</p>
+            </div>
+        </div>
+
+        <!-- TABLA DETALLADA CON NAVEGACIÓN Y GMAIL -->
+        <h2 class="section-title">🥾 Puntos de Ruta y Contacto Institucional</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Punto / Tramo</th>
+                    <th>Tipo de Camino / Descripción</th>
+                    <th>Navegación / Contacto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1. San Marcos de la Aguada</strong></td>
+                    <td>Inicio / Accesible desde el poblado.</td>
+                    <td><a href="https://maps.google.com/?q=-12.6393,-76.6231" target="_blank" class="btn-map">🗺️ Abrir Google Maps</a></td>
+                </tr>
+                <tr>
+                    <td><strong>2. Puquio Natural</strong></td>
+                    <td>Fuente de agua y cruce de senderos.</td>
+                    <td><a href="https://maps.google.com/?q=-12.6300,-76.6150" target="_blank" class="btn-map">🗺️ Abrir Google Maps</a></td>
+                </tr>
+                <tr>
+                    <td><strong>3. Atrapanieblas</strong></td>
+                    <td>Proyecto ambiental de captación de agua.</td>
+                    <td><a href="https://maps.google.com/?q=-12.6250,-76.6100" target="_blank" class="btn-map">🗺️ Abrir Google Maps</a></td>
+                </tr>
+                <tr>
+                    <td><strong>Contacto / Consultas</strong></td>
+                    <td>Envío de archivos e informes del proyecto.</td>
+                    <td><a href="mailto:lomasdesanmarcos.aguada@gmail.com?subject=Consulta%20Proyecto%20Lomas" target="_blank" class="btn-gmail">📧 Redactar en Gmail</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SECCIÓN DE REGRESO / LLEGADA A LA AGUADA -->
+        <div class="return-box">
+            <h3>📍 Punto de Retorno y Base del Recorrido</h3>
+            <p style="font-size: 14px; margin-top: 5px; color: #334155;">Una vez completado el circuito por las lomas y miradores, el sendero te trae de vuelta a la zona central de La Aguada.</p>
+            <a href="https://maps.google.com/?q=-12.6393,-76.6231" target="_blank" class="btn-return">🏡 Regresar a San Marcos de la Aguada</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
